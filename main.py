@@ -2,7 +2,7 @@ import random
 from datetime import datetime
 
 #33-126 ascii
-entrada="Hola MondoHola MundoHola MundoHola MundoHola Mundo"
+
 
 def shift(n, b):
     return ((n << b) | (n >> (7 - b))) 
@@ -13,31 +13,30 @@ def cortadora(entrada):
 	if len(entrada)<28:
 		while(len(string)<28):
 			string="0"+string
-		salida[0]=entrada[0:4]
-		salida[1]=entrada[4:8]
-		salida[2]=entrada[8:12]
-		salida[3]=entrada[12:16]
-		salida[4]=entrada[16:20]
-		salida[5]=entrada[20:24]
-		salida[6]=entrada[24:28]
+		salida[0]=string[0:4]
+		salida[1]=string[4:8]
+		salida[2]=string[8:12]
+		salida[3]=string[12:16]
+		salida[4]=string[16:20]
+		salida[5]=string[20:24]
+		salida[6]=string[24:28]
 	elif len(entrada)>28:
 		string=entrada[0:28]
-		salida[0]=entrada[0:4]
-		salida[1]=entrada[4:8]
-		salida[2]=entrada[8:12]
-		salida[3]=entrada[12:16]
-		salida[4]=entrada[16:20]
-		salida[5]=entrada[20:24]
-		salida[6]=entrada[24:28]
+		salida[0]=string[0:4]
+		salida[1]=string[4:8]
+		salida[2]=string[8:12]
+		salida[3]=string[12:16]
+		salida[4]=string[16:20]
+		salida[5]=string[20:24]
+		salida[6]=string[24:28]
 	else:
-		salida[0]=entrada[0:4]
-		salida[1]=entrada[4:8]
-		salida[2]=entrada[8:12]
-		salida[3]=entrada[12:16]
-		salida[4]=entrada[16:20]
-		salida[5]=entrada[20:24]
-		salida[6]=entrada[24:28]
-	print(salida)
+		salida[0]=string[0:4]
+		salida[1]=string[4:8]
+		salida[2]=string[8:12]
+		salida[3]=string[12:16]
+		salida[4]=string[16:20]
+		salida[5]=string[20:24]
+		salida[6]=string[24:28]
 	return(salida)
 
 def procesar(entrada):
@@ -68,4 +67,29 @@ def shiaa_28(entrada):
 	while(i<7):
 		out[i]=procesar(chunks[i])
 		i+=1
-	return "".join(j for j in out)	
+	return "".join(j for j in out)
+
+if __name__ == '__main__':
+	import os
+	opt=0
+	while(opt!=10):
+		print("1-Ingresar un mensaje para hash")
+		print("2-Calcular entropia de un texto")
+		print("3-Salir")
+		opt=input("Ingrese una opcion: ")
+		print(opt)
+		if(opt=="1"):
+			text=input("Ingrese un mensaje o una direccion de archivo: ")
+			if(os.path.isfile(text)):
+				data=open(text,'r')
+				for line in data:
+					print(shiaa_28(line.strip()))
+			else:
+				print(shiaa_28(text))
+			continue
+		elif(opt=="2"):
+			text=input("Ingrese un texto para calcular su entropía: ")
+			continue
+		elif(opt=="3"):
+			opt=10
+			continue
