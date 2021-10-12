@@ -89,6 +89,7 @@ if __name__ == '__main__':
 			continue
 		elif(opt=="2"):
 			text=input("Ingrese un texto para calcular su entropía: ")
+			print(text +"\nEntropía -----"+str(len(text)*math.log(94,2)))
 			continue
 		elif(opt=="3"):
 			opt=10
