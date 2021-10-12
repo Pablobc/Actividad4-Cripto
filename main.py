@@ -1,59 +1,71 @@
 import random
 from datetime import datetime
-import struct
 
-entrada="Hola MundoHola MundoHola MundoHola MundoHola Mundo"
+#33-126 ascii
+entrada="Hola MondoHola MundoHola MundoHola MundoHola Mundo"
+
+def shift(n, b):
+    return ((n << b) | (n >> (7 - b))) 
+
 def cortadora(entrada):
 	string=entrada
 	salida=["","","","","","",""]
 	if len(entrada)<28:
 		while(len(string)<28):
 			string="0"+string
-		salida[0]=bytes(string[0:4],encoding='utf-8')
-		salida[1]=bytes(string[4:8],encoding='utf-8')
-		salida[2]=bytes(string[8:12],encoding='utf-8')
-		salida[3]=bytes(string[12:16],encoding='utf-8')
-		salida[4]=bytes(string[16:20],encoding='utf-8')
-		salida[5]=bytes(string[20:24],encoding='utf-8')
-		salida[6]=bytes(string[24:28],encoding='utf-8')
+		salida[0]=entrada[0:4]
+		salida[1]=entrada[4:8]
+		salida[2]=entrada[8:12]
+		salida[3]=entrada[12:16]
+		salida[4]=entrada[16:20]
+		salida[5]=entrada[20:24]
+		salida[6]=entrada[24:28]
 	elif len(entrada)>28:
 		string=entrada[0:28]
-		salida[0]=bytes(string[0:4],encoding='utf-8')
-		salida[1]=bytes(string[4:8],encoding='utf-8')
-		salida[2]=bytes(string[8:12],encoding='utf-8')
-		salida[3]=bytes(string[12:16],encoding='utf-8')
-		salida[4]=bytes(string[16:20],encoding='utf-8')
-		salida[5]=bytes(string[20:24],encoding='utf-8')
-		salida[6]=bytes(string[24:28],encoding='utf-8')
+		salida[0]=entrada[0:4]
+		salida[1]=entrada[4:8]
+		salida[2]=entrada[8:12]
+		salida[3]=entrada[12:16]
+		salida[4]=entrada[16:20]
+		salida[5]=entrada[20:24]
+		salida[6]=entrada[24:28]
 	else:
-		salida[0]=bytes(string[0:4],encoding='utf-8')
-		salida[1]=bytes(string[4:8],encoding='utf-8')
-		salida[2]=bytes(string[8:12],encoding='utf-8')
-		salida[3]=bytes(string[12:16],encoding='utf-8')
-		salida[4]=bytes(string[16:20],encoding='utf-8')
-		salida[5]=bytes(string[20:24],encoding='utf-8')
-		salida[6]=bytes(string[24:28],encoding='utf-8')
+		salida[0]=entrada[0:4]
+		salida[1]=entrada[4:8]
+		salida[2]=entrada[8:12]
+		salida[3]=entrada[12:16]
+		salida[4]=entrada[16:20]
+		salida[5]=entrada[20:24]
+		salida[6]=entrada[24:28]
 	print(salida)
 	return(salida)
 
 def procesar(entrada):
-	w=[0]*7
 	random.seed(datetime.now())
-	generador=random.randint(0,31)
+	generador=random.randint(1,7)
+	generador2=random.randint(33,126)
+	h=[0]*4
+	h[0]=shift(ord(entrada[0])^ord(entrada[1]),generador)
+	h[1]=shift(ord(entrada[1])|ord(entrada[2]),generador)^h[0]
+	h[2]=shift(ord(entrada[3])^ord(entrada[0]),generador)^ord(entrada[2])|h[1]^h[0]
+	h[3]=shift((ord(entrada[2])|h[0])^ord(entrada[3])^h[2],generador)^h[1]
 	i=0
-	while(i<7):
-		w[i]=struct.unpack(b'>I', entrada[i])[0]
+	while(i<4):
+		h[i]=h[i]&126
+		if h[i]<33:
+			h[i]+=generador2
+			h[i]=h[i]&126
+		if h[i]<33:
+			h[i]+=33
 		i+=1
-	print(w)
-	w[0]=(w[0]<<generador) & 0xffffffff
-	w[1]=(w[1]^generador) & 0xffffffff
-	w[2]=(w[2]>>generador) & 0xffffffff
-	w[3]=(w[3] & generador) & 0xffffffff
-	w[4]=(w[4] | generador) & 0xffffffff
-	w[5]=(w[5] ^ w[4] ^ generador) & 0xffffffff
-	w[6]=((w[6]^w[5]) << generador) & 0xffffffff
-	print(w)
-	return b''.join(struct.pack(b'>I', h) for h in w)
-	
+	return "".join(chr(j) for j in h)	
 
-print(procesar(cortadora(entrada)))
+
+def shiaa_28(entrada):
+	chunks=cortadora(entrada)
+	out=[0]*7
+	i=0	
+	while(i<7):
+		out[i]=procesar(chunks[i])
+		i+=1
+	return "".join(j for j in out)	
