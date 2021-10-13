@@ -86,12 +86,12 @@ if __name__ == '__main__':
 				start = time.time()
 				data=open(text,'r')
 				for line in data:
-					print(shiaa_28(line.strip()))
+					print("Texto: "+line.strip()+" ----- Hash: "+shiaa_28(line.strip()))
 				end = time.time()
 				print("Tiempo de ejecucion [segundos]:", end-start)
 			else:
 				start = time.time()
-				print(shiaa_28(text))
+				print("Texto: "+line.strip()+" ----- Hash: "+shiaa_28(text))
 				end = time.time()
 				print("Tiempo de ejecucion [segundos]:", end-start)
 			continue
