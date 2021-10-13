@@ -4,10 +4,14 @@ import time
 
 #33-126 ascii
 
-
+#Entrada: 2 enteros
+#Salida: bits del numero n desplazados circularmente b veces
 def shift(n, b):
     return ((n << b) | (n >> (7 - b))) 
 
+#entrada: string de largo x
+#salida: lista de 7 strings de 4 letras cada una confeccionada a partir de los primeros 28 caracteres del string entrada.
+#En caso de haber menos de 28 caracteres, la string de entrada se rellena con 0 a la izquierda
 def cortadora(entrada):
 	string=entrada
 	salida=["","","","","","",""]
@@ -40,6 +44,10 @@ def cortadora(entrada):
 		salida[6]=string[24:28]
 	return(salida)
 
+#entrada: string de 4 caracteres
+#salida: string de 4 caracteres, producida a partir de la string de entrada donde a cada caracter se le hizo una permutacion distinta con un numero generado aleatoriamente
+#y otras operaciones
+
 def procesar(entrada):
 	random.seed(datetime.now())
 	generador=random.randint(1,7)
@@ -60,6 +68,8 @@ def procesar(entrada):
 		i+=1
 	return "".join(chr(j) for j in h)	
 
+#entrada: lista de 7 strings de 4 caracteres
+#salida: string producida a partir de la union de 7 strings de 4 caracteres a las cuales se le aplico la función procesar()
 
 def shiaa_28(entrada):
 	chunks=cortadora(entrada)
