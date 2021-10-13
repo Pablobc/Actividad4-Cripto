@@ -1,5 +1,6 @@
 import random
 from datetime import datetime
+import time
 
 #33-126 ascii
 
@@ -71,6 +72,7 @@ def shiaa_28(entrada):
 
 if __name__ == '__main__':
 	import os
+	import math
 	opt=0
 	while(opt!=10):
 		print("1-Ingresar un mensaje para hash")
@@ -81,11 +83,17 @@ if __name__ == '__main__':
 		if(opt=="1"):
 			text=input("Ingrese un mensaje o una direccion de archivo: ")
 			if(os.path.isfile(text)):
+				start = time.time()
 				data=open(text,'r')
 				for line in data:
 					print(shiaa_28(line.strip()))
+				end = time.time()
+				print("Tiempo de ejecucion [segundos]:", end-start)
 			else:
+				start = time.time()
 				print(shiaa_28(text))
+				end = time.time()
+				print("Tiempo de ejecucion [segundos]:", end-start)
 			continue
 		elif(opt=="2"):
 			text=input("Ingrese un texto para calcular su entropía: ")
