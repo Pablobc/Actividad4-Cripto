@@ -34,7 +34,16 @@ def cortadora(entrada):
 		salida[5]=string[20:24]
 		salida[6]=string[24:28]
 	elif len(entrada)>28:
-		string=entrada[0:28]
+		while(len(string)>28):
+			aux=""
+			for i in range(len(string)-1):
+				aux2=ord(string[i])^ord(string[len(string)-(i+1)])
+				aux2=aux2 & 126
+				if aux2<33:
+					aux2+=33
+				aux+=chr(aux2)
+			print(aux)
+			string=aux
 		salida[0]=string[0:4]
 		salida[1]=string[4:8]
 		salida[2]=string[8:12]
