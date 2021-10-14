@@ -16,8 +16,16 @@ def cortadora(entrada):
 	string=entrada
 	salida=["","","","","","",""]
 	if len(entrada)<28:
-		while(len(string)<28):
-			string="0"+string
+		if(len(entrada)<2):
+			while(len(string)<28):
+				string="0"+string
+		else:
+			while(len(string)<28):
+				aux=ord(string[0])+ord(string[1])
+				aux=aux & 126
+				if aux<33:
+					aux+=33
+				string=chr(aux)+string
 		salida[0]=string[0:4]
 		salida[1]=string[4:8]
 		salida[2]=string[8:12]
