@@ -42,7 +42,6 @@ def cortadora(entrada):
 				if aux2<33:
 					aux2+=33
 				aux+=chr(aux2)
-			print(aux)
 			string=aux
 		salida[0]=string[0:4]
 		salida[1]=string[4:8]
