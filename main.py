@@ -101,7 +101,7 @@ if __name__ == '__main__':
 				print("Tiempo de ejecucion [segundos]:", end-start)
 			else:
 				start = time.time()
-				print("Texto: "+line.strip()+" ----- Hash: "+shiaa_28(text))
+				print("Texto: "+text.strip()+" ----- Hash: "+shiaa_28(text))
 				end = time.time()
 				print("Tiempo de ejecucion [segundos]:", end-start)
 			continue
