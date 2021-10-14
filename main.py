@@ -49,14 +49,13 @@ def cortadora(entrada):
 #y otras operaciones
 
 def procesar(entrada):
-	random.seed(datetime.now())
 	generador=random.randint(1,7)
 	generador2=random.randint(33,126)
 	h=[0]*4
-	h[0]=shift(ord(entrada[0])^ord(entrada[1]),generador)
-	h[1]=shift(ord(entrada[1])|ord(entrada[2]),generador)^h[0]
-	h[2]=shift(ord(entrada[3])^ord(entrada[0]),generador)^ord(entrada[2])|h[1]^h[0]
-	h[3]=shift((ord(entrada[2])|h[0])^ord(entrada[3])^h[2],generador)^h[1]
+	h[0]=h[0]+shift(ord(entrada[0])^ord(entrada[1]),generador)+h[1]+h[2]
+	h[1]=h[1]+shift(ord(entrada[1])|ord(entrada[2]),generador)^h[0]
+	h[2]=h[2]+(shift(ord(entrada[3])^ord(entrada[0]),generador)^ord(entrada[2])|h[1]^h[0])
+	h[3]=h[3]+(shift((ord(entrada[2])|h[0])^ord(entrada[3])^h[2],generador)^h[1])
 	i=0
 	while(i<4):
 		h[i]=h[i]&126
@@ -72,6 +71,7 @@ def procesar(entrada):
 #salida: string producida a partir de la union de 7 strings de 4 caracteres a las cuales se le aplico la función procesar()
 
 def shiaa_28(entrada):
+	random.seed(datetime.now().replace(second=0, microsecond=0))
 	chunks=cortadora(entrada)
 	out=[0]*7
 	i=0	
